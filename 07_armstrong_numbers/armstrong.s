@@ -53,9 +53,7 @@ _hundred_start:
 	blt	_hundred_end
 	
 	teq	r5, #0
-#	bne	_hundred_width
 	moveq	r5, #3
-#	mov	r5, #3
 _hundred_width:
 	add	r7, r7, #hundred
 	add	r6, r6, #1
@@ -75,9 +73,7 @@ _ten_start:
 	blt	_ten_end
 	
 	teq	r5, #0
-#	bne	_ten_width
 	moveq	r5, #3
-#	mov	r5, #2
 _ten_width:
 	add	r7, r7, #ten
 	add	r6, r6, #1
