@@ -5,8 +5,8 @@ LD      := /usr/bin/ld
 ASOPTS  := -gstabs
 CCOPTS  := 
 
-#harness: harness.s armstrong.s
-harness: harness.s power.s
+harness: harness.s armstrong.s power.s
+#harness: harness.s power.s
 
 armstrong: armstrong_main.s armstrong.s power.s
 
