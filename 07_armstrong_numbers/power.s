@@ -2,28 +2,28 @@
 #
 # inputs
 #   r0 - digit
-#   r1 - power (between 2 and 4)
+#   r1 - power 
 #
 # outputs
 #   r0 - digit ** power
-
-.equ datum_size,4
+#
+# locals
+#   r4
 .globl _power
 .align 2
         .text
 _power:
 	nop
-        stmfd	sp!, {r4, lr}	@ save variables to stack
+        stmfd	sp!, {r4, lr}		@ save variables to stack
 
-	subs	r1, r1, #2				@ number of elements must be > 1
-	bmi	_end
+	subs	r1, r1, #1		@ leave unless power > 1
+	ble	_end
 
-	mov	r4, r0
-	add	r1, r1, #1
+	mov	r4, r0			@ copy digit
 _power_loop_start:
-	mul	r0, r4, r0
-	subs	r1, r1, #1			
-	beq	_end
-	b	_power_loop_start
+	mul	r0, r4, r0		@ raise to next power
+	subs	r1, r1, #1		
+	beq	_end			@ leave when done
+	b	_power_loop_start	@ next iteration
 _end:
-        ldmfd   sp!, {r4, pc}	@ restore state from stack and leave subroutime
+        ldmfd   sp!, {r4, pc}		@ restore state from stack and leave subroutime
