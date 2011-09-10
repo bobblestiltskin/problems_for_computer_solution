@@ -11,6 +11,12 @@
 .equ thousand,1000
 .equ ten_thousand,10000
 
+number .req r4
+width .req r5
+digit .req r6
+current .req r7
+armstrong .req r8
+
 .globl _armstrong
 .align 2
         .text
@@ -18,79 +24,79 @@ _armstrong:
         nop
         stmfd   sp!, {r4, r5, r6, r7, r8, lr}   @ save variables to stack
 
-        mov     r4, r0				@ use r4 for n
-	cmp	r4, #ten
+        mov     number, r0			@ copy passed parameter to working number
+	cmp	number, #ten			@ exit unless number > 10
 	blt	_end
 
-        ldr     r8, =ten_thousand
-	cmp	r4, r8
+        ldr     current, =ten_thousand		@ exit unless number < 10000
+	cmp	number, current
 	bge	_end
 
-	mov	r5, #0				@ use r5 for width
-	mov	r6, #0				@ use r6 for digit
-	ldr	r7, =thousand
-	mov	r8, #0				@ use r8 for armstrong
+	mov	width, #0			@ initialise
+	mov	digit, #0
+	mov	armstrong, #0
+	ldr	current, =thousand		@ handle 1000 digit
 _thousand_start:
-	cmp	r4, r7
-	blt	_thousand_end
+	cmp	number, current
+	blt	_thousand_end			@ exit thousand code if none left
 	
-	mov	r5, #4				
-	add	r7, r7, #thousand
-	add	r6, r6, #1
-	b	_thousand_start
+	mov	width, #4			@ width must be 4
+	add	current, current, #thousand	@ bump thousand counter
+	add	digit, digit, #1		@ and corresponding didgit count
+	b	_thousand_start			@ and loop
 _thousand_end:
-	add	r4, r4, #thousand
-	sub	r4, r4, r7
-	mov	r0, r6
-	mov	r1, r5
-	bl	_power
-	add	r8, r0, r8
+	add	number, number, #thousand	@ need nmber modulo thousand
+	sub	number, number, current
+	mov	r0, digit			@ push digit
+	mov	r1, width			@ and width
+	bl	_power				@ to compute digit **width
+	add	armstrong, r0, armstrong	@ and update armstrong number with this value
 
-	ldr	r7, =hundred
-	mov	r6, #0				@ use r6 for digit
+	ldr	current, =hundred		@ then we do the hundreds as we did the thousands
+	mov	digit, #0
 _hundred_start:
-	cmp	r4, r7
+	cmp	number, current
 	blt	_hundred_end
 	
-	teq	r5, #0
-	moveq	r5, #3
+	teq	width, #0			@ and only set width if it is currently unset
+	moveq	width, #3
 _hundred_width:
-	add	r7, r7, #hundred
-	add	r6, r6, #1
+	add	current, current, #hundred	@ yada yada as thousands above
+	add	digit, digit, #1
 	b	_hundred_start
 _hundred_end:
-	add	r4, r4, #hundred
-	sub	r4, r4, r7
-	mov	r0, r6
-	mov	r1, r5
+	add	number, number, #hundred
+	sub	number, number, current
+	mov	r0, digit
+	mov	r1, width
 	bl	_power
-	add	r8, r0, r8
+	add	armstrong, r0, armstrong
 
-	ldr	r7, =ten
-	mov	r6, #0				@ use r6 for digit
+	ldr	current, =ten			@ then the tens as the hundred and thousands above
+	mov	digit, #0
 _ten_start:
-	cmp	r4, r7
+	cmp	number, current
 	blt	_ten_end
 	
-	teq	r5, #0
-	moveq	r5, #3
+	teq	width, #0
+	moveq	width, #2
 _ten_width:
-	add	r7, r7, #ten
-	add	r6, r6, #1
+	add	current, current, #ten
+	add	digit, digit, #1
 	b	_ten_start
 _ten_end:
-	add	r4, r4, #ten
-	sub	r4, r4, r7
-	mov	r0, r6
-	mov	r1, r5
+	add	number, number, #ten
+	sub	number, number, current
+	mov	r0, digit
+	mov	r1, width
 	bl	_power
-	add	r8, r0, r8
+	add	armstrong, r0, armstrong
 
-	mov	r0, r4
-	mov	r1, r5
+	mov	r0, number			@ then add in the trailing digits
+	mov	r1, width
 	bl	_power
-	add	r8, r0, r8
+	add	armstrong, r0, armstrong
 
-	mov	r0, r8
+	mov	r0, armstrong			@ and copy the armstrong number back to r0 for return
 _end:
         ldmfd   sp!, {r4, r5, r6, r7, r8, pc}   @ restore state from stack and leave subroutine
