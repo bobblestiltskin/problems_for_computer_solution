@@ -10,20 +10,19 @@ string:
 	.global	main
 	.type	main, %function
 main:
-	ldr	r0, =string	@ store address of start of string to r0
 	ldr	r5, =ten
 	ldr	r6, =ten_thousand
 
-	mov	r4, r5
-_outer_loop:
-	cmp	r4, r6
+	mov	r4, r5		@ start with n = 10
+_loop:
+	cmp	r4, r6		@ leave if n = 10_000
 	beq	_end
 
-	mov	r0, r4
+	mov	r0, r4		@ call the _armstrong function
 	bl	_armstrong
 
-	teq	r0, r4
-	bne	_next
+	teq	r0, r4		@ if the armstong value = n print it
+	bne	_next		@ else skip
 
 	mov	r2, r0
 	mov	r1, r4
@@ -31,7 +30,7 @@ _outer_loop:
 	bl	printf		@ call the c function to display information
 _next:
 	add	r4, r4, #1
-	b	_outer_loop
+	b	_loop
 _end:
 	mov	r7, #1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
