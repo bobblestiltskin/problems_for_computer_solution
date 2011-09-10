@@ -4,17 +4,16 @@ LD      := /usr/bin/ld
 
 ASOPTS  := -gstabs
 CCOPTS  := 
+CLIBS   := -lm
 
-harness: harness.s armstrong.s power.s
-#harness: harness.s power.s
+all: armstrong armstrong_string armstrong_divide
+
+harness: harness.s armstrong_macro.s power.s
 
 armstrong: armstrong_main.s armstrong.s power.s
 
-carmstrong: armstrong.c
-	$(CC) -o $@ $^ -lm
+%: %.c
+	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	rm -f armstrong carmstrong
-
-%: %.s
-	$(CC) $(ASOPTS) -o $@ $^
+	rm -f armstrong armstrong_string armstrong_divide harness
