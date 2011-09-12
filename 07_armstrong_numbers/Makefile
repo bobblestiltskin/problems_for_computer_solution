@@ -17,7 +17,7 @@ armstrong: armstrong_main.s armstrong.s power.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	rm -f armstrong armstrong_string armstrong_divide harness
+	rm -f armstrong armstrong_macro armstrong_string armstrong_divide harness
 
 timings: all
 	time --quiet perl ./armstrong.pl
