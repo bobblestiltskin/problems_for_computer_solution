@@ -18,9 +18,3 @@ armstrong: armstrong_main.s armstrong.s power.s
 
 clean:
 	rm -f armstrong armstrong_macro armstrong_string armstrong_divide harness
-
-timings: all
-	time --quiet perl ./armstrong.pl
-	time --quiet ./armstrong_string
-	time --quiet ./armstrong_divide
-	time --quiet ./armstrong
