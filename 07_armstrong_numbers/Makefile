@@ -10,6 +10,7 @@ all: armstrong armstrong_string armstrong_divide
 
 harness: harness.s armstrong_macro.s power.s
 
+armstrong_macro: armstrong_main.s armstrong_macro.s power.s
 armstrong: armstrong_main.s armstrong.s power.s
 
 %: %.c
@@ -17,3 +18,9 @@ armstrong: armstrong_main.s armstrong.s power.s
 
 clean:
 	rm -f armstrong armstrong_string armstrong_divide harness
+
+timings: all
+	time --quiet perl ./armstrong.pl
+	time --quiet ./armstrong_string
+	time --quiet ./armstrong_divide
+	time --quiet ./armstrong
