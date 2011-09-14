@@ -42,10 +42,10 @@ _thousand_start:
 	
 	mov	width, #4			@ width must be 4
 	add	current, current, #thousand	@ bump thousand counter
-	add	digit, digit, #1		@ and corresponding didgit count
+	add	digit, digit, #1		@ and corresponding digit count
 	b	_thousand_start			@ and loop
 _thousand_end:
-	add	number, number, #thousand	@ need nmber modulo thousand
+	add	number, number, #thousand	@ need number modulo thousand
 	sub	number, number, current
 	mov	r0, digit			@ push digit
 	mov	r1, width			@ and width
