@@ -17,13 +17,13 @@ _power:
         stmfd	sp!, {r4, lr}		@ save variables to stack
 
 	subs	r1, r1, #1		@ leave unless power > 1
-	ble	_end
+	ble	_power_end
 
 	mov	r4, r0			@ copy digit
 _power_loop_start:
 	mul	r0, r4, r0		@ raise to next power
 	subs	r1, r1, #1		
-	beq	_end			@ leave when done
+	beq	_power_end			@ leave when done
 	b	_power_loop_start	@ next iteration
-_end:
+_power_end:
         ldmfd   sp!, {r4, pc}		@ restore state from stack and leave subroutime
