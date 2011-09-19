@@ -23,7 +23,7 @@ _power:
 _power_loop_start:
 	mul	r0, r4, r0		@ raise to next power
 	subs	r1, r1, #1		
-	beq	_power_end			@ leave when done
+	beq	_power_end		@ leave when done
 	b	_power_loop_start	@ next iteration
 _power_end:
         ldmfd   sp!, {r4, pc}		@ restore state from stack and leave subroutime
