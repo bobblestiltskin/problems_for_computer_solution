@@ -12,9 +12,10 @@ harness: harness.s armstrong_macro.s power.s
 
 armstrong_macro: armstrong_main.s armstrong_macro.s power.s
 armstrong: armstrong_main.s armstrong.s power.s
+armstrong_big_macro: armstrong_big_main.s armstrong_big_macro.s power.s
 
 %: %.c
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	rm -f armstrong armstrong_macro armstrong_string armstrong_divide harness
+	rm -f armstrong armstrong_macro armstrong_string armstrong_divide harness armstrong_big_string armstrong_big_macro
