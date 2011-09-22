@@ -4,15 +4,19 @@ use warnings;
 
 (@ARGV == 2) or die "Need two roman numerals, $!";
 
-my $arabic0 = r2a(lc($ARGV[0]));
-my $arabic1 = r2a(lc($ARGV[1]));
-my $roman0 = uc(a2r($arabic0));
-my $roman1 = uc(a2r($arabic1));
+my $roman0 = uc($ARGV[0]);
+my $roman1 = uc($ARGV[1]);
+my $arabic0 = r2a(lc($roman0));
+my $arabic1 = r2a(lc($roman1));
+#my $roman0 = uc(a2r($arabic0));
+#my $roman1 = uc(a2r($arabic1));
 my $sum = uc(a2r($arabic0 + $arabic1));
 my $product = uc(a2r($arabic0 * $arabic1));
-for (my $i=901; $i < 1000; $i++) {
-  a2r($i);
-}
+#for (my $i=901; $i < 1000; $i++) {
+#  a2r($i);
+#}
+print "SUM of $roman0 and $roman1 is $sum\n";
+print "PRODUCT of $roman0 and $roman1 is $product\n";
 
 sub r2a {
   my $r2a = {i => 1,
@@ -45,7 +49,7 @@ sub r2a {
     }
   }
   
-  print "ROMAN is $roman, ARABIC is $arabic\n";
+#  print "ROMAN is $roman, ARABIC is $arabic\n";
   return $arabic;
 }
 
@@ -53,7 +57,7 @@ sub a2r {
   my $arabic = shift;
 
   my $roman = "";
-  print "ARABIC is $arabic, ";
+#  print "ARABIC is $arabic, ";
   my $thousands = int($arabic / 1000);
   $arabic = $arabic % 1000;
   $roman = 'm' x $thousands;
@@ -116,7 +120,7 @@ sub a2r {
     $roman .= 'i';
     $arabic -= 1;
   }
-  print "ROMAN is $roman\n";
+#  print "ROMAN is $roman\n";
   return $roman;
 }
 
