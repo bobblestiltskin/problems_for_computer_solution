@@ -14,4 +14,4 @@ harness: harness.s gcd.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	rm -f harness
+	rm -f harness gcd
