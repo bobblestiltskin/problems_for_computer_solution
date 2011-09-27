@@ -1,5 +1,6 @@
-typedef unsigned long long uint64;
-uint64 gcd(uint64 u, uint64 v)
+#include "stdio.h"
+
+int gcd(int u, int v)
 {
      int shift;
  
@@ -27,7 +28,7 @@ uint64 gcd(uint64 u, uint64 v)
          if (u < v) {
              v -= u;
          } else {
-             uint64 diff = u - v;
+             int diff = u - v;
              u = v;
              v = diff;
          }
