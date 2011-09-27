@@ -14,6 +14,7 @@ print "GCD is $gcd\n";
 print "LCM is $lcm\n";
 
 sub gcd {
+# derived from c code at http://en.wikipedia.org/wiki/Binary_GCD_algorithm
   my ($u, $v) = @_;
   my $shift;
  
