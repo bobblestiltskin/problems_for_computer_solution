@@ -1,0 +1,7 @@
+This repository holds solutions to some of the "Problems for Computer Solution"
+written by Stephen J. Rogowski. I bought the book in 1981 or 1982 shortly after
+I got my Acorn Atom and used it to learn.
+
+I coded most of the problems in Perl, and got diverted with the Armstrong Numbers
+and rewrote that in C and assembly language on the ARM. I abandoned the project when
+I found Project Euler which had more interesting problems.
